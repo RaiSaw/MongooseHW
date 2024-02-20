@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { Sample } from "../mongoose/mong.mjs"
+import { Model } from "../Model/mong.mjs"
 
 const router = Router();
 router
 .get("/sample", async(req, res) => {
     try {
-        const data = await Sample.find()
+        const data = await Model.find()
         res.json(data)
     }
     catch (error){
@@ -16,7 +16,7 @@ router
 
 .get("/sample/:id", async(req, res) => {
     try {
-         const data = await Sample.findById(req.params.id)
+         const data = await Model.findById(req.params.id)
          res.json(data)
     }
     catch (error) {
@@ -25,7 +25,7 @@ router
 })
 
 .post("/sample", (req, res) => {
-    const data = new Sample({
+    const data = new Model({
         username: req.body.username,
         age: req.body.age,
         email: req.body.email
@@ -44,7 +44,7 @@ router
         const id = req.params.id
         const upData = req.body
         const options = { new: true }
-        const ponyUp = await Sample.findByIdAndUpdate( id, upData, options)
+        const ponyUp = await Model.findByIdAndUpdate( id, upData, options)
         res.send(ponyUp)
     }
     catch (error) {
@@ -55,7 +55,7 @@ router
 .delete("/sample/:id", async (req, res) => {
     try {
         const id = req.params.id
-        const data = await Sample.findByIdAndDelete(id)
+        const data = await Model.findByIdAndDelete(id)
         res.send(`${data.username} wouldn't be a Pony rockstar anymore 😔` )
     }
     catch (error) {
